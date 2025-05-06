@@ -5,6 +5,17 @@ LIBS_DIR=$(pwd)/libs
 INSTALL_DIR=$(pwd)/bin
 mkdir -p $INSTALL_DIR
 
+sed -i 's/1, 16,/1, 102400000,/g' aria2/src/OptionHandlerFactory.cc
+sed -i 's/"20M", 1_m, 1_g/"1K", 1_k, 1_g/g' aria2/src/OptionHandlerFactory.cc
+sed -i 's/"1M", 1_m, 1_g/"1K", 1_k, 1_g/g' aria2/src/OptionHandlerFactory.cc
+sed -i 's/"0", 0, 600/"2", 0, 600/g' aria2/src/OptionHandlerFactory.cc
+sed -i 's/"5", 1, -1/"10", 1, -1/g' aria2/src/OptionHandlerFactory.cc
+sed -i 's/static const int DEFAULT_MAX_PEERS = 55/static const int DEFAULT_MAX_PEERS = 100/g' aria2/src/BtRuntime.h
+sed -i 's/static const int DEFAULT_MIN_PEERS = 40/static const int DEFAULT_MIN_PEERS = 75/g' aria2/src/BtRuntime.h
+# FROM https://github.com/aria2/aria2/pull/2209
+sed -i '152i     e_->deleteSocketForWriteCheck(socket_, resp.get());' aria2/src/HttpServerBodyCommand.cc
+echo FFFFFFFFFFFFFFFFFFFF
+
 cd aria2
 autoreconf -i
 
